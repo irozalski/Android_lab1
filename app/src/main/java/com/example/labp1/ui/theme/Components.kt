@@ -142,17 +142,7 @@ fun SensorCard(image:Int, isSelected : Boolean, sensorSelected : (sensorName:Str
     }
 }
 
-@Composable
-fun ButtonComponent(
-    goToDetailsScreen : () -> Unit,
-    navController: NavController
-){
-    Button(
-        modifier = Modifier.fillMaxWidth(),
-        onClick = {navController.navigate(route = Routes.WELCOME_SCREEN)}){
-        TextComponent(textValue = "Go to sensor", textSize = 18.sp)
-    }
-}
+
 
 
 

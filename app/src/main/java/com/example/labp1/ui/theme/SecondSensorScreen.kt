@@ -11,7 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun WelcomeScreen(){
+fun SecondSensorScreen(){
     Surface(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -19,12 +19,12 @@ fun WelcomeScreen(){
             modifier = Modifier
                 .fillMaxWidth()
                 .height(80.dp),
-            text = "WELCOME")
+            text = "Sensor222222")
     }
 }
 
 @Preview
 @Composable
-fun WelcomeScreenPreview(){
-    WelcomeScreen()
+fun SecondScreenPreview(){
+    SecondSensorScreen()
 }

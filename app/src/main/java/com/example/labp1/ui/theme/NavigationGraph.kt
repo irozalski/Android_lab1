@@ -1,28 +1,36 @@
 package com.example.labp1.ui.theme
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 
 @Composable
 
-fun NavigationGraph(userInputViewModel: UserInputViewModel = viewModel()){
+fun NavigationGraph(
 
-val navController = rememberNavController()
+     navController : NavHostController
 
-    NavHost(navController = navController, startDestination = Routes.USER_INPUT_SCREEN){
-        composable(Routes.USER_INPUT_SCREEN){
-            UserInputScreen(userInputViewModel, showWelcomeScreen =  {
-                println(it.first)
-                println(it.first)
-                //navController.navigate(Routes.WELCOME_SCREEN)
-            })
-        }
 
-        composable(Routes.WELCOME_SCREEN){
-             WelcomeScreen()
+){
+
+    NavHost(navController = navController,
+            startDestination = Routes.MAIN_SCREEN){
+        composable(
+            route = Routes.MAIN_SCREEN){
+                MenuScreen(
+                    navController = navController
+                )
+            }
+
+        composable(
+            route = Routes.FIRST_SENSOR_SCREEN){
+                FirstSensorScreen()
+            }
+
+        composable(
+            route = Routes.SECOND_SENSOR_SCREEN){
+                SecondSensorScreen()
+            }
         }
     }
-}
