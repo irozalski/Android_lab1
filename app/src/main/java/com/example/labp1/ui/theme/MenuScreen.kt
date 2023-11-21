@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.labp1.R
 
 @Composable
@@ -41,14 +43,14 @@ fun MenuScreen(
             Spacer(modifier = Modifier.size(60.dp))
             Row(modifier = Modifier.fillMaxWidth()) {
 
-                Spacer(modifier = Modifier.width(45.dp))
+                Spacer(modifier = Modifier.width(35.dp))
 
                 TextComponent(
                     textValue = "Sensor1",
                     textSize = 24.sp
                 )
 
-                Spacer(modifier = Modifier.width(90.dp))
+                Spacer(modifier = Modifier.width(60.dp))
 
                 TextComponent(
                     textValue = "Sensor2",
@@ -57,37 +59,37 @@ fun MenuScreen(
 
             }
 
-        Row(modifier = Modifier.fillMaxWidth()) {
+            Row(modifier = Modifier.fillMaxWidth()) {
 
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .padding(24.dp)
-                    .size(130.dp),
-                elevation = 4.dp
-            ) {
-                Box(
+                Card(
+                    shape = RoundedCornerShape(8.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .border(
-                            width = 1.dp,
-                            color = Color.Green,
-                            shape = RoundedCornerShape(8.dp)
-                        )
-
+                        .padding(20.dp)
+                        .size(110.dp),
+                    elevation = 4.dp
                 ) {
-                    Image(
-
+                    Box(
                         modifier = Modifier
-                            .padding(16.dp)
-                            .wrapContentHeight()
-                            .wrapContentWidth()
-                            .clickable {
-                                navController.navigate(route = Routes.FIRST_SENSOR_SCREEN)
-                            },
-                        painter = painterResource(id = R.drawable.sensor1),
-                        contentDescription = "Sensor"
-                    )
+                            .fillMaxWidth()
+                            .border(
+                                width = 1.dp,
+                                color = Color.Green,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+
+                    ) {
+                        Image(
+
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .wrapContentHeight()
+                                .wrapContentWidth()
+                                .clickable {
+                                    navController.navigate(route = Routes.FIRST_SENSOR_SCREEN)
+                                },
+                            painter = painterResource(id = R.drawable.sensor1),
+                            contentDescription = "Sensor"
+                        )
 
 
 //                    Button(
@@ -128,49 +130,50 @@ fun MenuScreen(
 //                placeholderText = "Podaj swoją wage",
 //                onTextChanged = {userInputViewModel.onEvent(UserDataUiEvents.UserWeightEntered(it.toFloat()))
 //                })
+                    }
                 }
-            }
 
-            Card(
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .padding(24.dp)
-                    .size(130.dp),
-                elevation = 4.dp
-            ) {
-                Box(
+                Card(
+                    shape = RoundedCornerShape(8.dp),
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .border(
-                            width = 1.dp,
-                            color = Color.Green,
-                            shape = RoundedCornerShape(8.dp)
-                        )
-
+                        .padding(20.dp)
+                        .size(110.dp),
+                    elevation = 4.dp
                 ) {
-                    Image(
-
+                    Box(
                         modifier = Modifier
-                            .padding(16.dp)
-                            .wrapContentHeight()
-                            .wrapContentWidth()
-                            .clickable {
-                                navController.navigate(route = Routes.SECOND_SENSOR_SCREEN)
-                            },
-                        painter = painterResource(id = R.drawable.sensor2),
-                        contentDescription = "Sensor2"
-                    )
-                }
+                            .fillMaxWidth()
+                            .border(
+                                width = 1.dp,
+                                color = Color.Green,
+                                shape = RoundedCornerShape(8.dp)
+                            )
+
+                    ) {
+                        Image(
+
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .wrapContentHeight()
+                                .wrapContentWidth()
+                                .clickable {
+                                    navController.navigate(route = Routes.SECOND_SENSOR_SCREEN)
+                                },
+                            painter = painterResource(id = R.drawable.sensor2),
+                            contentDescription = "Sensor2"
+                        )
+                    }
                 }
             }
+
         }
     }
+
 }
 
+@Preview
+@Composable
+fun MenuScreenPreview(){
+    MenuScreen(navController = rememberNavController())
+}
 
-
-//@Preview
-//@Composable
-//fun UserInputScreenPreview(){
-//    UserInputScreen(UserInputViewModel())
-//}
