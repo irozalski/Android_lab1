@@ -3,38 +3,84 @@ package com.example.labp1.ui.theme
 import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-class LightSensor(
-    context: Context
-): AndroidSensor(
-    context = context,
-    sensorFeature = PackageManager.FEATURE_SENSOR_LIGHT,
-    sensorType = Sensor.TYPE_LIGHT
-)
+
+class LightSensorViewModel(private val context: Context) : ViewModel(), SensorEventListener {
+
+    companion object {
+        fun create(context: Context): LightSensorViewModel {
+            return LightSensorViewModel(context)
+        }
+    }
+
+    private val sensorManager: SensorManager by lazy {
+        context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    }
+    private val lightSensor: Sensor? by lazy {
+        sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT)
+    }
+
+    private val _lightValues = mutableStateOf(0f)
+    val lightValues: State<Float> = _lightValues
+
+    init {
+        lightSensor?.let {
+            sensorManager.registerListener(this, it, SensorManager.SENSOR_DELAY_NORMAL)
+        }
+    }
+
+    override fun onSensorChanged(event: SensorEvent?) {
+        event?.let {
+            _lightValues.value = it.values[0]
+        }
+    }
+
+    override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+
+    }
+
+    fun stopListening() {
+        lightSensor?.let {
+            sensorManager.unregisterListener(this, it)
+        }
+    }
+}
 
 
 
 @Composable
-fun FirstSensorScreen(){
-    val viewModel = viewModel<MainViewModel>()
-    val isDark = viewModel.isDark
+fun FirstSensorScreen(lightSensorViewModel: LightSensorViewModel = viewModel()){
+
+    val lightValues by lightSensorViewModel.lightValues
+    val threshold = 1000f
+
+    DisposableEffect(lightSensorViewModel) {
+        onDispose {
+            lightSensorViewModel.stopListening()
+        }
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(
-            if(isDark) Color.DarkGray else Color.White)
+            if(lightValues>threshold) Color.DarkGray else Color.White)
     ) {
         Text(
             modifier = Modifier

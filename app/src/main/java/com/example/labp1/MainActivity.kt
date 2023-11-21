@@ -16,9 +16,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.labp1.ui.theme.*
-import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint
+
+
 class MainActivity : ComponentActivity() {
 
     lateinit var navController: NavHostController
